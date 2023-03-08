@@ -16,7 +16,7 @@ const calculator = {
                             this.operation = false},
 }
 
-document.querySelectorAll(".numbers > input[type='button']").forEach(
+document.querySelectorAll(".numbers > input").forEach(
     button => button.addEventListener("mousedown", function(e) {
         if (calculator.a === false) calculator.a = Number(e.target.id)
         else { //If there's a number (a) already
