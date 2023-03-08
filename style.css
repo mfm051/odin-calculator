@@ -1,70 +1,67 @@
 body {
-    background-color: #F6B764;
+    background-color: #FFC375;
 }
 
 .calculator {
-    width: 500px;
-    height: 600px;
+    width: 350px;
+    height: 400px;
     background-color: #8E8585;
     border-radius: 15px;
     border: #6D6D6D solid 5px;
-    margin: 0 auto;
-    box-shadow: 0 0 25px #242323;
+    margin: auto;
+    box-shadow: inset 0 0 5px #242323;
 }
 
 .display {
-    width: 450px;
-    height: 100px;
+    width: 90%;
+    height: 20%;
     background-color: #0E0B0B;
     border-radius: 5px;
     margin: 20px auto;
+    box-shadow: inset 0 0 5px #474545;
 }
 
 .buttons {
+    width: 90%;
+    height: 80%;
     display: flex;
+    margin: 10px auto;
 }
 
 .numbers {
-    width: 225px;
-    height: 100%;
+    /* border: red solid; */
+    width: 60%;
+    height: 80%;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
-    align-items: center;
+    align-content: flex-start;
+    gap: 5px;
 }
 
 .numbers > input {
     font-size: 40px;
     width: 50px;
     height: 50px;
-    margin: 5px;
-}
-
-.right {
-    width: 225px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #444242;
 }
 
 .actions {
-    width: 100px;
+    /* border: red solid; */
+    width: 40%;
+    height: 80%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 5px;
 }
 
 .actions > input {
     width: 50px;
     height: 50px;
-}
-
-.operations {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.operations > input {
-    width: 50px;
-    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #444242;
 }
