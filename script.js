@@ -1,8 +1,10 @@
 const calculator = {
     display:                document.querySelector(".display"),
     numbers:                document.querySelectorAll(".numbers > input"),
-    actions:                document.querySelectorAll(".actions > .modify"),
     operations:             document.querySelectorAll(".actions > .operation"),
+    backSpace:              document.getElementById("removelast"),
+    ac:                     document.getElementById("clear"),
+    equal:                  document.getElementById("equal"),
     a:                      false,
     b:                      false,
     chosenOperation:        false,
@@ -30,6 +32,11 @@ const calculator = {
                                     if (numToString.length > 1) this.a = Number(numToString.slice(0, numToString.length - 1))
                                 }            
                             },
+    clearAll()              {
+                                this.a = false;
+                                this.b = false;
+                                this.chosenOperation = false
+                            }
 };
 
 calculator.numbers.forEach (
@@ -45,3 +52,4 @@ calculator.operations.forEach (
         (e) => calculator.pickOperator(e.target.id)
     )
 )
+
