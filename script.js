@@ -17,18 +17,18 @@ const calculator = {
                                     this.a === false ? this.a = num : this.a = Number (`${this.a}${num}`);
                                 }
                                 else {
-                                    this.b === false ? this.b = num : this.b = Number (`${this.b}${num}`)
+                                    this.b === false ? this.b = num : this.b = Number (`${this.b}${num}`);
                                 }
                             },
     pickOperator(operator)  {
                                 if (this.chosenOperation === false) this.chosenOperation = operator; 
-                                if (this.a === false) this.a = 0},
+                                if (this.a === false || this.a === 'mathError') this.a = 0},
     getResult()             {   
-                                if (this.chosenOperation === false)         return
-                                if (this.chosenOperation === '+')         return this.add()
+                                if (this.chosenOperation === false)  return
+                                if (this.chosenOperation === '+')    return this.add()
                                 if (this.chosenOperation === '-')    return this.subtract()
                                 if (this.chosenOperation === '*')    return this.multiply()
-                                if (this.chosenOperation === '/')      return this.divide()
+                                if (this.chosenOperation === '/')    return this.divide()
                             },
     removeLast()             {   
                                 if (this.b !== false) {
@@ -50,9 +50,6 @@ const calculator = {
                                 this.chosenOperation = false;
                                 calculator.display.textContent = '';
                             },
-    // print(toPrint)          {
-    //                             calculator.display.textContent += toPrint;
-    //                         }
     refreshDisplay()        {
                                 let num1; let operator; let num2;
 
@@ -61,6 +58,13 @@ const calculator = {
                                 this.chosenOperation === false ? operator = '' : operator = this.chosenOperation;
 
                                 this.display.textContent = num1 + operator + num2;
+                            },
+    checkComplete()         {
+                                if (this.b !== false) {
+                                    this.a = this.getResult();
+                                    this.b = false;
+                                    this.chosenOperation = false
+                                }
                             }
 };
 
@@ -80,6 +84,7 @@ calculator.operations.forEach (
     operation => operation.addEventListener (
         "mousedown",
         (e) => {
+            calculator.checkComplete();
             calculator.pickOperator(e.target.value);
             calculator.refreshDisplay()
         } 
@@ -101,3 +106,11 @@ calculator.ac.addEventListener (
         calculator.refreshDisplay()
     } 
 );
+
+calculator.equal.addEventListener (
+    "mousedown",
+    () => {
+        calculator.checkComplete();
+        calculator.refreshDisplay()
+    }
+)
