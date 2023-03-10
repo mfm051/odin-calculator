@@ -25,10 +25,10 @@ const calculator = {
                                 if (this.a === false) this.a = 0},
     getResult()             {   
                                 if (this.chosenOperation === false)         return
-                                if (this.chosenOperation === 'add')         return this.add()
-                                if (this.chosenOperation === 'subtract')    return this.subtract()
-                                if (this.chosenOperation === 'multiply')    return this.multiply()
-                                if (this.chosenOperation === 'divide')      return this.divide()
+                                if (this.chosenOperation === '+')         return this.add()
+                                if (this.chosenOperation === '-')    return this.subtract()
+                                if (this.chosenOperation === '*')    return this.multiply()
+                                if (this.chosenOperation === '/')      return this.divide()
                             },
     removeLast()             {   
                                 if (this.b !== false) {
@@ -50,19 +50,28 @@ const calculator = {
                                 this.chosenOperation = false;
                                 calculator.display.textContent = '';
                             },
-    print(toPrint)          {
-                                calculator.display.textContent += toPrint;
+    // print(toPrint)          {
+    //                             calculator.display.textContent += toPrint;
+    //                         }
+    refreshDisplay()        {
+                                let num1; let operator; let num2;
+
+                                this.a === false ? num1 = '' : num1 = this.a;
+                                this.b === false ? num2 = '' : num2 = this.b;
+                                this.chosenOperation === false ? operator = '' : operator = this.chosenOperation;
+
+                                this.display.textContent = num1 + operator + num2;
                             }
 };
 
-calculator.display.textContent = '';
+// calculator.display.textContent = '';
 
 calculator.numbers.forEach (
     number => number.addEventListener (
         "mousedown",
         (e) => {
             calculator.pickNum(Number(e.target.id));
-            calculator.print(e.target.value)
+            calculator.refreshDisplay()
         } 
     )
 );
@@ -71,8 +80,8 @@ calculator.operations.forEach (
     operation => operation.addEventListener (
         "mousedown",
         (e) => {
-            calculator.pickOperator(e.target.id);
-            calculator.print(e.target.value)
+            calculator.pickOperator(e.target.value);
+            calculator.refreshDisplay()
         } 
     )
 );
@@ -81,11 +90,14 @@ calculator.backSpace.addEventListener (
     "mousedown",
     () => {
         calculator.removeLast();
-
+        calculator.refreshDisplay()
     } 
 );
 
 calculator.ac.addEventListener (
     "mousedown",
-    () => calculator.clear()
+    () => {
+        calculator.clear();
+        calculator.refreshDisplay()
+    } 
 );
