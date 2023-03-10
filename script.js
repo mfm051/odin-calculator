@@ -14,7 +14,9 @@ const calculator = {
     multiply()              {return this.a * this.b},
     pickNum(num)            {
                                 if (this.chosenOperation === false) {
-                                    this.a === false ? this.a = num : this.a = Number (`${this.a}${num}`);
+                                    this.a === false || this.a === 'mathError' ? 
+                                    this.a = num : 
+                                    this.a = Number (`${this.a}${num}`);
                                 }
                                 else {
                                     this.b === false ? this.b = num : this.b = Number (`${this.b}${num}`);
@@ -56,6 +58,9 @@ const calculator = {
                                 this.a === false ? num1 = '' : num1 = this.a;
                                 this.b === false ? num2 = '' : num2 = this.b;
                                 this.chosenOperation === false ? operator = '' : operator = this.chosenOperation;
+
+                                if (num1.toString().includes(".")) num1 = num1.toFixed(1);
+                                if (num2.toString().includes(".")) num2 = num2.toFixed(1);
 
                                 this.display.textContent = num1 + operator + num2;
                             },
