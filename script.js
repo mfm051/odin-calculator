@@ -14,13 +14,15 @@ const calculator = {
     multiply()              {return this.a * this.b},
     pickNum(num)            {
                                 if (this.chosenOperation === false) {
-                                    this.a === false ? this.a = num : this.a = Number (`${this.a}${num}`)
+                                    this.a === false ? this.a = num : this.a = Number (`${this.a}${num}`);
                                 }
                                 else {
                                     this.b === false ? this.b = num : this.b = Number (`${this.b}${num}`)
                                 }
                             },
-    pickOperator(operator)  {this.chosenOperation = operator; if (this.a === false) this.a = 0},
+    pickOperator(operator)  {
+                                if (this.chosenOperation === false) this.chosenOperation = operator; 
+                                if (this.a === false) this.a = 0},
     getResult()             {   
                                 if (this.chosenOperation === false)         return
                                 if (this.chosenOperation === 'add')         return this.add()
@@ -42,28 +44,48 @@ const calculator = {
                                 }
                                 else return
                             },
-    clearAll()              {
+    clear()                 {
                                 this.a = false;
                                 this.b = false;
-                                this.chosenOperation = false
+                                this.chosenOperation = false;
+                                calculator.display.textContent = '';
+                            },
+    print(toPrint)          {
+                                calculator.display.textContent += toPrint;
                             }
 };
+
+calculator.display.textContent = '';
 
 calculator.numbers.forEach (
     number => number.addEventListener (
         "mousedown",
-        (e) => calculator.pickNum(Number(e.target.id))
+        (e) => {
+            calculator.pickNum(Number(e.target.id));
+            calculator.print(e.target.value)
+        } 
     )
 );
 
 calculator.operations.forEach (
     operation => operation.addEventListener (
         "mousedown",
-        (e) => calculator.pickOperator(e.target.id)
+        (e) => {
+            calculator.pickOperator(e.target.id);
+            calculator.print(e.target.value)
+        } 
     )
 );
 
 calculator.backSpace.addEventListener (
     "mousedown",
-    () => calculator.removeLast()
+    () => {
+        calculator.removeLast();
+
+    } 
+);
+
+calculator.ac.addEventListener (
+    "mousedown",
+    () => calculator.clear()
 );
