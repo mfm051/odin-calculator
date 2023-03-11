@@ -20,6 +20,7 @@ body {
 .display {
     width: 90%;
     height: 20%;
+    padding-left: 10px;
     background-color: #0E0B0B;
     border-radius: 5px;
     margin: 20px auto;
@@ -28,8 +29,8 @@ body {
     font-size: 50px;
     font-family: "Digital-7", monospace;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    overflow-x: auto;
 }
 
 .buttons {

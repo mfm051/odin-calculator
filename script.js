@@ -48,17 +48,11 @@ const calculator = {
                             },
     removeLast()             {   
                                 if (this.b !== false) {
-                                    // let numToString = this.b.toString();
-                                    // if (numToString.length > 1) this.b = Number(numToString.slice(0, numToString.length - 1))
-                                    // else this.b = false
                                     if (this.b.length > 1) this.b = this.b.slice(0, this.b.length - 1);
                                     else this.b = false
                                 }
                                 else if (this.chosenOperation !== false) this.chosenOperation = false
-                                else if (this.a !== false) {
-                                    // let numToString = this.a.toString();
-                                    // if (numToString.length > 1) this.a = Number(numToString.slice(0, numToString.length - 1))
-                                    // else this.a = false
+                                else if (this.a !== false && this.a !== 'mathError') {
                                     if (this.a.length > 1) this.a = this.a.slice(0, this.a.length - 1);
                                     else this.a = false
                                 }
@@ -84,7 +78,7 @@ const calculator = {
                             },
     checkComplete()         {
                                 if (this.b !== false) {
-                                    this.a = this.getResult();
+                                    this.a = this.getResult().toString(); // a must be string to check for decimals
                                     this.b = false;
                                     this.chosenOperation = false
                                 }
