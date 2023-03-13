@@ -71,8 +71,8 @@ const calculator = {
                                 this.b === false ? num2 = '' : num2 = this.b;
                                 this.chosenOperation === false ? operator = '' : operator = this.chosenOperation;
 
-                                // if (num1.includes(".")) num1 = num1.toFixed(1);
-                                // if (num2.includes(".")) num2 = num2.toFixed(1);
+                                if (num1.includes(".")) num1 = num1.slice(0, num1.indexOf('.') + 4)
+                                if (num2.includes(".")) num2 = num2.slice(0, num2.indexOf('.') + 4)
 
                                 this.display.textContent = num1 + operator + num2;
                             },
@@ -82,19 +82,29 @@ const calculator = {
                                     this.b = false;
                                     this.chosenOperation = false
                                 }
-                            }
+                            },
+    scrollToEnd()           {
+                                calculator.display.scrollLeft = calculator.display.scrollWidth
+                            },
+    scrollToStart()         {
+                                calculator.display.scrollLeft = -calculator.display.scrollWidth
+                            },    
 };
 
-calculator.numbers.forEach (
-    number => number.addEventListener (
-        "mousedown",
-        (e) => {
-            calculator.pickNum(e.target.id);
-            calculator.refreshDisplay();
-            calculator.display.scrollLeft = calculator.display.scrollWidth
-        } 
-    )
-);
+const addNumber = function(e) {
+    const nums = [0,1,2,3,4,5,6,7,8,9];
+    if (nums.includes(Number(e.key))) {
+        calculator.pickNum(e.key)
+    }
+    else {
+        calculator.pickNum(e.target.value);
+    }; 
+    calculator.refreshDisplay();
+    calculator.scrollToEnd()
+}
+
+calculator.numbers.forEach (number => number.addEventListener ("mousedown", addNumber));
+document.addEventListener ("keydown", addNumber)
 
 calculator.decimal.addEventListener (
     "mousedown",
@@ -111,7 +121,7 @@ calculator.operations.forEach (
             calculator.checkComplete();
             calculator.pickOperator(e.target.value);
             calculator.refreshDisplay();
-            calculator.display.scrollLeft = calculator.display.scrollWidth
+            calculator.scrollToEnd()
         } 
     )
 );
@@ -121,7 +131,6 @@ calculator.backSpace.addEventListener (
     () => {
         calculator.removeLast();
         calculator.refreshDisplay();
-        calculator.display.scrollLeft = calculator.display.scrollWidth
     } 
 );
 
@@ -138,6 +147,6 @@ calculator.equal.addEventListener (
     () => {
         calculator.checkComplete();
         calculator.refreshDisplay();
-        calculator.display.scrollLeft = -calculator.display.scrollWidth
+        calculator.scrollToStart()
     }
 )
