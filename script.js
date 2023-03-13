@@ -164,6 +164,7 @@ document.addEventListener (
 
         const ops = ['+','-','*','/'];
         if (ops.includes(e.key)) {
+            e.preventDefault(); // "/" key is "quick find" in firefox
             calculator.checkComplete();
             calculator.pickOperator(e.key);
             calculator.refreshDisplay();
@@ -176,7 +177,7 @@ document.addEventListener (
         };
 
         if (e.key === "Delete") {
-            calculator.removeLast();
+            calculator.clear();
             calculator.refreshDisplay()
         };
 
