@@ -90,7 +90,8 @@ calculator.numbers.forEach (
         "mousedown",
         (e) => {
             calculator.pickNum(e.target.id);
-            calculator.refreshDisplay()
+            calculator.refreshDisplay();
+            calculator.display.scrollLeft = calculator.display.scrollWidth
         } 
     )
 );
@@ -109,7 +110,8 @@ calculator.operations.forEach (
         (e) => {
             calculator.checkComplete();
             calculator.pickOperator(e.target.value);
-            calculator.refreshDisplay()
+            calculator.refreshDisplay();
+            calculator.display.scrollLeft = calculator.display.scrollWidth
         } 
     )
 );
@@ -118,7 +120,8 @@ calculator.backSpace.addEventListener (
     "mousedown",
     () => {
         calculator.removeLast();
-        calculator.refreshDisplay()
+        calculator.refreshDisplay();
+        calculator.display.scrollLeft = calculator.display.scrollWidth
     } 
 );
 
@@ -134,6 +137,7 @@ calculator.equal.addEventListener (
     "mousedown",
     () => {
         calculator.checkComplete();
-        calculator.refreshDisplay()
+        calculator.refreshDisplay();
+        calculator.display.scrollLeft = -calculator.display.scrollWidth
     }
 )
