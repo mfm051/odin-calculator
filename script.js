@@ -91,44 +91,40 @@ const calculator = {
                             },    
 };
 
-const addNumber = function(e) {
-    const nums = [0,1,2,3,4,5,6,7,8,9];
-    if (nums.includes(Number(e.key))) {
-        calculator.pickNum(e.key)
-    }
-    else {
-        calculator.pickNum(e.target.value);
-    }; 
-    calculator.refreshDisplay();
-    calculator.scrollToEnd()
-}
+calculator.numbers.forEach (
+    number => number.addEventListener (
+        "mousedown", 
+        function (e) {
+            calculator.pickNum(e.target.value);
+            calculator.refreshDisplay();
+            calculator.scrollToEnd()
+        }
+    )
+);
 
-calculator.numbers.forEach (number => number.addEventListener ("mousedown", addNumber));
-document.addEventListener ("keydown", addNumber)
-
-calculator.decimal.addEventListener (
+calculator.decimal.addEventListener(
     "mousedown",
-    () => {
+    function () {
         calculator.addDecimal();
         calculator.refreshDisplay()
     }
-)
+);
 
-calculator.operations.forEach (
-    operation => operation.addEventListener (
+calculator.operations.forEach(
+    operation => operation.addEventListener(
         "mousedown",
-        (e) => {
+        function (e) {
             calculator.checkComplete();
             calculator.pickOperator(e.target.value);
             calculator.refreshDisplay();
             calculator.scrollToEnd()
-        } 
+        }
     )
 );
 
 calculator.backSpace.addEventListener (
     "mousedown",
-    () => {
+    function () {
         calculator.removeLast();
         calculator.refreshDisplay();
     } 
@@ -136,7 +132,7 @@ calculator.backSpace.addEventListener (
 
 calculator.ac.addEventListener (
     "mousedown",
-    () => {
+    function () {
         calculator.clear();
         calculator.refreshDisplay()
     } 
@@ -144,9 +140,50 @@ calculator.ac.addEventListener (
 
 calculator.equal.addEventListener (
     "mousedown",
-    () => {
+    function () {
         calculator.checkComplete();
         calculator.refreshDisplay();
         calculator.scrollToStart()
+    }
+);
+
+document.addEventListener (
+    "keydown", 
+    function (e) {
+        const nums = [0,1,2,3,4,5,6,7,8,9];
+        if (nums.includes(Number(e.key))) {
+            calculator.pickNum(e.key);
+            calculator.refreshDisplay();
+            calculator.scrollToEnd()
+        };
+
+        if (e.key === '.') {
+            calculator.addDecimal();
+            calculator.refreshDisplay()
+        };
+
+        const ops = ['+','-','*','/'];
+        if (ops.includes(e.key)) {
+            calculator.checkComplete();
+            calculator.pickOperator(e.key);
+            calculator.refreshDisplay();
+            calculator.scrollToEnd()
+        };
+
+        if (e.key === "Backspace") {
+            calculator.removeLast();
+            calculator.refreshDisplay()
+        };
+
+        if (e.key === "Delete") {
+            calculator.removeLast();
+            calculator.refreshDisplay()
+        };
+
+        if (e.key === "Enter") {
+            calculator.checkComplete();
+            calculator.refreshDisplay();
+            calculator.scrollToStart()
+        }
     }
 )
