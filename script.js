@@ -27,7 +27,7 @@ const calculator = {
     pickOperator(operator)  {
                                 if (this.a === 'mathError') return
                                 if (this.chosenOperation === false) this.chosenOperation = operator; 
-                                if (this.a === false) this.a = 0;
+                                if (this.a === false) this.a = '0';
                             },
     addDecimal()            {
                                 if (this.b !== false) {
@@ -38,6 +38,12 @@ const calculator = {
                                     if (this.a.includes('.')) return;
                                     else this.a += '.'
                                 }
+                            },
+    makePerCent()           {
+                                if (this.a !== false) {
+                                    this.chosenOperation = "/";
+                                    this.b = '100';
+                                } 
                             },
     getResult()             {   
                                 if (this.chosenOperation === false)  return
@@ -109,6 +115,15 @@ calculator.decimal.addEventListener(
         calculator.refreshDisplay()
     }
 );
+
+calculator.percentage.addEventListener(
+    "mousedown",
+    function () {
+        calculator.makePerCent();
+        calculator.checkComplete();
+        calculator.refreshDisplay()
+    }
+)
 
 calculator.operations.forEach(
     operation => operation.addEventListener(
